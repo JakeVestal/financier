@@ -1,3 +1,5 @@
+# Importing NumPy as "np"
+import numpy as np
 
 class Multiplication:
     """
@@ -22,5 +24,5 @@ class Multiplication:
         :rtype: int
         """
 
-        return number * self.multiplier
+        return np.dot(number,self.multiplier)
     
