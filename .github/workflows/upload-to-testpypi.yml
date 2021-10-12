@@ -37,16 +37,8 @@ jobs:
       # Also installs the package from setup.py
       - name: "Set up pip and dependencies, install package from setup.py"
         run: |
-          # Upgrade pip if not Windows because Windows doesn't like 'python3'
-          if [ "$RUNNER_OS" != "Windows" ]; then
-            python3 -m pip install --upgrade pip
-            # Install build deps
-            python3 -m pip install setuptools wheel twine
-            # If requirements.txt exists, install from it
-            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            # Install the package from setup.py
-            python3 setup.py install
-          else
+          # Windows doesn't like 'python3'
+          if [ "$RUNNER_OS" == "Windows" ]; then
             python -m pip install --upgrade pip
             # Install build deps
             python -m pip install setuptools wheel twine
@@ -54,6 +46,14 @@ jobs:
             if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             # Install the package from setup.py
             python setup.py install
+          else
+            python3 -m pip install --upgrade pip
+            # Install build deps
+            python3 -m pip install setuptools wheel twine
+            # If requirements.txt exists, install from it
+            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            # Install the package from setup.py
+            python3 setup.py install
           fi
 
       # Tests with unittest
