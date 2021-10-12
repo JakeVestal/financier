@@ -17,13 +17,31 @@ jobs:
 
   # Run tests on the latest version of Ubuntu. Also update TEST PyPi.
   build:
-    runs-on: ubuntu-latest
-    steps:
-      # Check out repo under $GITHUB_WORKSPACE
-      - uses: actions/checkout@v2
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
 
-      # Sets up python3
-      - uses: actions/setup-python@v2
+        include:
+          - os: macos-latest
+            TARGET: x86_64-apple-darwin
+            COMPILER: clang
+            LINKER: clang
+
+          - os: ubuntu-latest
+            TARGET: armv7-unknown-linux-musleabihf
+            COMPILER: arm-linux-gnueabihf-gcc-5
+            LINKER: gcc-5-arm-linux-gnueabihf
+
+          - os: ubuntu-latest
+            TARGET: x86_64-unknown-linux-musl
+            COMPILER: gcc
+            LINKER: gcc
+
+    steps:
+      # Actions are found at github.com/actions
+      # the "@..." refers to what version of the action to use; later = better
+      - uses: actions/checkout@v2     # Check out repo under $GITHUB_WORKSPACE
+      - uses: actions/setup-python@v2 # Sets up python3
         with:
           python-version: 3.9
 
