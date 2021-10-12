@@ -1,17 +1,18 @@
-# This is a basic workflow to help you get started with Actions
+# Performs package tests on the latest versions of Ubuntu, Mac and Windows
+# Uploads package to TEST PyPi.
 
-name: Test & Upload to TestPyPI
+name: TEST PyPI- Run package tests and upload to TEST PyPi
 
-# Controls when the action will run. 
+# Runs whenever a push is made to main
+# Will give an error if version isn't updated in setup.py
 on:
-  # Triggers the workflow on push to the main branch
   push:
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Workflow
+# The workflow itself
 jobs:
 
   # Run tests on the latest version of Ubuntu. Also update TEST PyPi.
