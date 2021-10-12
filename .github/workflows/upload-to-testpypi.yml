@@ -49,6 +49,7 @@ jobs:
       - name: Build and Upload to TestPyPI (Linux Only)
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
+            echo "$RUNNER_OS"
             python3 -m pip install setuptools wheel twine
             pip install -r requirements.txt; fi
             python3 setup.py install
