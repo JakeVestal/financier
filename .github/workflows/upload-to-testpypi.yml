@@ -19,44 +19,24 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          # - os: macos-latest
-          # - os: ubuntu-latest
-          - os: windows-latest
+        python-version: [ 3.6, 3.7 ]
+        os: [ ubuntu-latest, macOS-latest, windows-latest ]
 
     steps:
-      # Actions are found at github.com/actions
-      # the "@..." refers to what version of the action to use; later = better
-      - uses: actions/checkout@v2     # Check out repo under $GITHUB_WORKSPACE
-      - uses: actions/setup-python@v2 # Sets up python3
-        with:
-          python-version: 3.9
+      - uses: actions/checkout@v1
 
-      # Installs and upgrades pip, plus other dependencies
-      # Also installs the package from setup.py
-      - name: "Set up pip and dependencies, install package from setup.py"
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
         run: |
-          #
-          echo "Using $RUNNER_OS"
-          if [ "$RUNNER_OS" == "Windows" ]; then
-          echo "yolo"
-            python -m pip install --upgrade pip
-            # Install build deps
-            # python -m pip install setuptools wheel twine
-            # If requirements.txt exists, install from it
-            # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            # Install the package from setup.py
-            # python setup.py install
-          else
-            # python3 -m pip install --upgrade pip
-            # Install build deps
-            # python3 -m pip install setuptools wheel twine
-            # If requirements.txt exists, install from it
-            # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            # Install the package from setup.py
-            # python3 setup.py install
-          fi
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade coverage
+          python -m pip install -e ".[d]"
 
       # Tests with unittest
       - name: Test with unittest
