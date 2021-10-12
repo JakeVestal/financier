@@ -54,8 +54,6 @@ jobs:
             python3 setup.py install
             python3 setup.py sdist bdist_wheel
             python3 -m twine upload dist/*
-          else
-            echo "$RUNNER_OS"
           fi
         env:
           TWINE_USERNAME: __token__
