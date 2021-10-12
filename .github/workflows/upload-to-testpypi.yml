@@ -28,11 +28,6 @@ jobs:
             LINKER: clang
 
           - os: ubuntu-latest
-            TARGET: armv7-unknown-linux-musleabihf
-            COMPILER: arm-linux-gnueabihf-gcc-5
-            LINKER: gcc-5-arm-linux-gnueabihf
-
-          - os: ubuntu-latest
             TARGET: x86_64-unknown-linux-musl
             COMPILER: gcc
             LINKER: gcc
@@ -66,10 +61,11 @@ jobs:
           cd ..
 
       # Upload to TestPyPI
-      - name: Build and Upload to TestPyPI
+      - name: Build and Upload to TestPyPI (Linux Only)
         run: |
-          python3 setup.py sdist bdist_wheel
-          python3 -m twine upload dist/*
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            python3 setup.py sdist bdist_wheel
+            python3 -m twine upload dist/*
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TWINE_TEST_TOKEN }}
