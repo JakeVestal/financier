@@ -54,7 +54,7 @@ jobs:
             python3 setup.py install
             python3 setup.py sdist bdist_wheel
             python3 -m twine upload dist/*
-
+          fi
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.TWINE_TEST_TOKEN }}
