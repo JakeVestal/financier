@@ -23,6 +23,7 @@ jobs:
         include:
           - os: macos-latest
           - os: ubuntu-latest
+          - os: windows-latest
 
     steps:
       # Actions are found at github.com/actions
