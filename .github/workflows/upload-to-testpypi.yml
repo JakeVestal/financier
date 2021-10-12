@@ -38,7 +38,9 @@ jobs:
       - name: "Set up pip and dependencies, install package from setup.py"
         run: |
           #
+          echo "Using $RUNNER_OS"
           if [ "$RUNNER_OS" == "Windows" ]; then
+          echo "yolo"
             python -m pip install --upgrade pip
             # Install build deps
             # python -m pip install setuptools wheel twine
