@@ -18,7 +18,6 @@ jobs:
   cleanup-runs:
     runs-on: ubuntu-latest
     steps:
-      - name: Clean up old GitHub Actions runs
       - uses: rokroskar/workflow-run-cleanup-action@master
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
