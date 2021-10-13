@@ -22,7 +22,7 @@ jobs:
       - uses: rokroskar/workflow-run-cleanup-action@main
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-    if: "!startsWith(github.ref, 'refs/tags/') && github.ref != 'refs/heads/main'"
+      if: "!startsWith(github.ref, 'refs/tags/') && github.ref != 'refs/heads/main'"
 
   build-and-test:
     runs-on: ${{ matrix.os }}
