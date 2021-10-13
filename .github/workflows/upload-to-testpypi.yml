@@ -15,8 +15,17 @@ on:
 # The workflow itself
 jobs:
 
+  cleanup-runs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rokroskar/workflow-run-cleanup-action@main
+      - name: Clean up any old GitHub Action runs
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
   build-and-test:
     runs-on: ${{ matrix.os }}
+    needs: cleanup-runs
     strategy:
       fail-fast: false
       matrix:
