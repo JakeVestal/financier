@@ -44,22 +44,6 @@ jobs:
           python3 -m unittest discover
           cd ..
 
-      # Upload to TestPyPI
-      - name: Build and Upload to TestPyPI (Linux Only)
-        run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            python3 -m pip install setuptools wheel twine
-            pip install -r requirements.txt
-            python3 setup.py install
-            python3 setup.py sdist bdist_wheel
-            python3 -m twine upload dist/*
-          fi
-        shell: bash
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.TWINE_TEST_TOKEN }}
-          TWINE_REPOSITORY: testpypi
-
   # The job that runs on Ubuntu with the latest version of Python and
   #   actually does the deploying.
   build-and-publish-to-test-pypi:
