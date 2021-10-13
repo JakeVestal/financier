@@ -14,7 +14,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-.idea
 lib/
 lib64/
 parts/
@@ -125,6 +124,11 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Pycharm
+**.iws
+**/.idea/workspace.xml
+**/.idea/tasks.xml
 
 # Pyre type checker
 .pyre/
