@@ -17,7 +17,6 @@ jobs:
 
   build-and-test:
     runs-on: ${{ matrix.os }}
-    needs: cleanup-runs
     strategy:
       fail-fast: false
       matrix:
