@@ -17,13 +17,13 @@ with open(path.join(HERE, 'README.md'), encoding='utf-8') as f:
 # This call to setup() does all the work
 setup(
     name="financier",
-    version="0.1.44",
+    version="0.1.45",
     description="Financial Analysis Toolkit",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://financier.readthedocs.io/",
     author="Jake Vestal, Sophie Rubin",
-    author_email="jmvestal@gmail.com, example@email.com",
+    author_email="jmvestal@gmail.com, sophierubin1224@gmail.com",
     license="MIT",
     classifiers=[
         "Intended Audience :: Developers",
