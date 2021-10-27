@@ -2,7 +2,14 @@
 import numpy as np
 from scipy import optimize
 
-def calc_market_portfolio(exp_ret, exp_vol, exp_cov, rf=.25,allow_short='No'):
+def calc_market_portfolio(df, rf=.25,allow_short='No'):
+    #import data + calculate stock exp returns,exp_vol
+    exp_ret = []
+    exp_vol = []
+    for (stock,returns) in df.iteritems():
+        exp_ret.append(np.mean(returns.values))
+        exp_vol.append(np.std(returns.values))
+    portfolio_size = len(df.columns)
 
     #objective function (sharpe ratio = (port_ret - rf)/port_vol)
     def sharpe(weights, exp_ret, exp_vol):
@@ -47,4 +54,6 @@ def calc_market_portfolio(exp_ret, exp_vol, exp_cov, rf=.25,allow_short='No'):
         print('{0}: {1}'.format(df.columns[i],result.x[i]))
     print(' ')
     return opt
+
+
 
