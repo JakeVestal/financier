@@ -10,7 +10,7 @@ class Portfolio:
         self.exp_vol = exp_vol
         self.exp_cov = exp_cov
 
-    def optimize(self, rf=0, tolerance=10e-3, allow_short=None):
+    def optimize(self, rf=0, tolerance=10e-6, allow_short=None):
         #add function for shorting later
         portfolio_size = len(self.exp_ret)
 

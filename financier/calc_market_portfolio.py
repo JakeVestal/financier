@@ -1,9 +1,13 @@
 
 import numpy as np
+import pandas as pd
 from scipy import optimize
 
 def calc_market_portfolio(df, rf=.25,allow_short='No'):
     #import data + calculate stock exp returns,exp_vol
+    df = pd.read_csv('tests/data/10stocks.csv')
+    rf=.25
+    allow_short='No'
     exp_ret = []
     exp_vol = []
     for (stock,returns) in df.iteritems():
@@ -37,7 +41,7 @@ def calc_market_portfolio(df, rf=.25,allow_short='No'):
 
     #minimization solver
     opt = optimize.minimize(sharpe,x0=xinit, args= (exp_ret, exp_vol),
-                            method = 'SLSQP', bounds=bounds, constraints=cons,tol=10**-3)
+                            method = 'SLSQP', bounds=bounds, constraints=cons,tol=10**-6)
     result = opt
 
     #print optimal sharpe and weights
@@ -46,14 +50,6 @@ def calc_market_portfolio(df, rf=.25,allow_short='No'):
     weights_matrix = np.array(result.x).reshape(-1,1)*np.array(result.x)
     cov_matrix = df.cov(min_periods=None, ddof=0).values
     port_exp_vol = np.sqrt(np.sum(np.multiply(weights_matrix, cov_matrix)))
-    print('Portfolio Expected Return: {0}'.format(port_exp_ret))
-    print('Portfolio Expected Volatility: {0}'.format(port_exp_vol))
-    print('Optimal Sharpe: {0}'.format(optimal_sharpe))
-    print('Optimal Weights:')
-    for i in range(len(df.columns)):
-        print('{0}: {1}'.format(df.columns[i],result.x[i]))
-    print(' ')
     return opt
-
 
 
