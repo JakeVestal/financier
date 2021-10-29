@@ -3,6 +3,7 @@ import numpy as np
 
 class Multiplication:
     """
+    This is an exmple
     Instantiate a multiplication operation.
     Numbers will be multiplied by the given multiplier.
 
