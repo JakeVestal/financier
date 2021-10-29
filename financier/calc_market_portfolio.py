@@ -5,9 +5,6 @@ from scipy import optimize
 
 def calc_market_portfolio(df, rf=.25,allow_short='No'):
     #import data + calculate stock exp returns,exp_vol
-    df = pd.read_csv('tests/data/10stocks.csv')
-    rf=.25
-    allow_short='No'
     exp_ret = []
     exp_vol = []
     for (stock,returns) in df.iteritems():
