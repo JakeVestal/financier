@@ -2,6 +2,7 @@ import os
 import unittest
 import pandas as pd
 from financier import Portfolio
+import numpy as np
 
 class MarketPortfolioTestCase(unittest.TestCase):
     print("----")
