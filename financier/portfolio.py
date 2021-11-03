@@ -4,11 +4,28 @@ from scipy import optimize
 
 class Portfolio:
 
-    def __init__(self, tickers, exp_ret, exp_vol, exp_cov):
-        self.tickers = tickers
+    def __init__(self, identifier, exp_ret, exp_vol, exp_cov, weights):
+        self.identifier = identifier
         self.exp_ret = exp_ret
         self.exp_vol = exp_vol
         self.exp_cov = exp_cov
+        self.weights = weights
+
+    def portfolio_vol(self):
+        weights_matrix = np.array(self.weights).reshape(-1,1)*np.array(self.weights)
+        port_vol = np.sqrt(np.sum(np.multiply(weights_matrix, self.exp_cov)))
+        return port_vol
+
+    def portfolio_ret(self):
+        port_ret = np.dot(self.exp_ret, self.weights)
+        return port_ret
+
+    def sharpe(self, rf=0):
+        port_ret = np.dot(self.exp_ret, self.weights)
+        weights_matrix = np.array(self.weights).reshape(-1,1)*np.array(self.weights)
+        port_vol = np.sqrt(np.sum(np.multiply(weights_matrix, self.exp_cov)))
+        sharpe = -((port_ret - rf)/port_vol)
+        return sharpe
 
     def optimize(self, rf=0, tolerance=10e-6, allow_short=None):
         #add function for shorting later
@@ -42,10 +59,12 @@ class Portfolio:
 
         #print optimal sharpe and weights
         optimal_sharpe = -result.fun
-        port_exp_ret = np.dot(self.exp_ret, result.x)
+        weights = result.x
+        port_exp_ret = np.dot(self.exp_ret, weights)
         weights_matrix = np.array(result.x).reshape(-1,1)*np.array(result.x)
         port_exp_vol = np.sqrt(np.sum(np.multiply(weights_matrix, self.exp_cov)))
-        return opt
+        x = Portfolio(self.identifier, self.exp_ret, self.exp_vol, self.exp_cov, weights)
+        return x
 
 
 
